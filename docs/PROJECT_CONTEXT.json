@@ -1,0 +1,48 @@
+{
+  "project": "WeSVG Studio",
+  "version": "0.3.2",
+  "milestone": "M1",
+  "status": "in-progress",
+  "canvas": "Konva",
+  "editor": "Monaco",
+  "database": "IndexedDB",
+  "storage": "AssetManager",
+  "framework": "Vue3 + Pinia + TypeScript",
+  "backend": "Node.js + Fastify",
+  "imageProcessing": "RMBG-2.0 (pending)",
+  "completed": [
+    "LayerSystem",
+    "ImageUpload",
+    "ShapeTextCreation",
+    "SelectionSystem",
+    "FloatingToolbar",
+    "DevicePreview",
+    "ExportSystem",
+    "MultiModeEditor",
+    "MonacoEditor",
+    "AutoSave",
+    "UndoRedo",
+    "HistoryStore",
+    "AssetManager",
+    "TextEditorOverlay",
+    "WorkspaceBackground",
+    "RemoveBgBackend",
+    "NodeMapper",
+    "HtmlCanvasParser"
+  ],
+  "inProgress": [
+    "ImagePersistence",
+    "LayerPanelIntegration",
+    "RefreshRecovery",
+    "AssetBrowser"
+  ],
+  "knownIssues": [
+    "BUG-001: Image lost after restart — Fixed",
+    "BUG-002: Color change resets position — Fixed",
+    "BUG-003: Blank page on navigation — Fixed",
+    "BUG-004: Text/Shape click not working — Fixed",
+    "BUG-005: Image not displaying on canvas — Fixed"
+  ],
+  "nextMilestone": "M2 — AI Remove Background & Export Polish",
+  "lastUpdated": "2026-06-18"
+}
