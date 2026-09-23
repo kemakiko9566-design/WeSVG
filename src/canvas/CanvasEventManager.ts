@@ -1,4 +1,4 @@
-﻿﻿import Konva from 'konva'
+﻿import Konva from 'konva'
 import type { CanvasManager } from './CanvasManager'
 
 export interface CanvasEventCallbacks {
@@ -50,14 +50,14 @@ export class CanvasEventManager {
       anchorCornerRadius: 6,
       // Rotation handle
       rotateEnabled: true,
-      rotationSnaps: [0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225, 240, 255, 270, 285, 300, 315, 330, 345],
+      rotationSnaps: [
+        0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195, 210, 225, 240, 255, 270, 285,
+        300, 315, 330, 345,
+      ],
       rotateAnchorOffset: 30,
       // Behavior
       keepRatio: true,
       enabledAnchors: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
-      // Hover styling
-      borderStroke: '#FF6A00',
-      borderStrokeWidth: 2,
     })
 
     // Create and add rotation handle line (Konva doesn't have built-in rotation line handle)
@@ -68,6 +68,7 @@ export class CanvasEventManager {
 
     // Bind transformer transformend -> sync resize/rotate back to store
     this._transformer.on('transformend', () => {
+      if (!this._transformer) return
       const nodes = this._transformer.nodes()
       nodes.forEach((node) => {
         const id = node.id()

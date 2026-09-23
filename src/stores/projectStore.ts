@@ -7,17 +7,27 @@ import { useHistoryStore } from './historyStore'
 
 const META_KEY = 'wesvg_meta'
 
-interface ProjectMeta { id: string; name: string; updatedAt: string; createdAt: string }
+interface ProjectMeta {
+  id: string
+  name: string
+  updatedAt: string
+  createdAt: string
+}
 
 export const useProjectStore = defineStore('project', () => {
   const currentProject = ref<Project | null>(null)
   const metas = ref<ProjectMeta[]>(loadMetas())
 
   function loadMetas(): ProjectMeta[] {
-    try { return JSON.parse(localStorage.getItem(META_KEY) || '[]') }
-    catch { return [] }
+    try {
+      return JSON.parse(localStorage.getItem(META_KEY) || '[]')
+    } catch {
+      return []
+    }
   }
-  function saveMetas() { localStorage.setItem(META_KEY, JSON.stringify(metas.value)) }
+  function saveMetas() {
+    localStorage.setItem(META_KEY, JSON.stringify(metas.value))
+  }
 
   const hasProject = computed(() => currentProject.value !== null)
 
@@ -26,12 +36,15 @@ export const useProjectStore = defineStore('project', () => {
     const project: Project = {
       id: `proj_${generateId()}`,
       name,
-      createdAt: now, updatedAt: now,
+      createdAt: now,
+      updatedAt: now,
       version: '1.0.0',
       canvas: {
         id: `canvas_${generateId()}`,
-        width: 1080, height: 3000,
-        background: '#ffffff', viewMode: 'phone',
+        width: 1080,
+        height: 3000,
+        background: '#ffffff',
+        viewMode: 'phone',
         layers: [],
       },
     }
@@ -61,7 +74,14 @@ export const useProjectStore = defineStore('project', () => {
         createdAt: meta.createdAt,
         updatedAt: meta.updatedAt,
         version: '1.0.0',
-        canvas: { id: `canvas_${generateId()}`, width: 1080, height: 3000, background: '#ffffff', viewMode: 'phone', layers: [] },
+        canvas: {
+          id: `canvas_${generateId()}`,
+          width: 1080,
+          height: 3000,
+          background: '#ffffff',
+          viewMode: 'phone',
+          layers: [],
+        },
       }
       return currentProject.value
     }
@@ -83,7 +103,19 @@ export const useProjectStore = defineStore('project', () => {
     if (currentProject.value?.id === id) currentProject.value = null
   }
 
-  function getProjectList() { return metas.value }
+  function getProjectList() {
+    return metas.value
+  }
+
+  // ----- Layer helpers (delegate to canvas store) -----
+  function updateLayer(layerId: string, updates: Partial<AnyLayer>) {
+    if (!currentProject.value) return
+    const layer = currentProject.value.canvas.layers.find((l) => l.id === layerId)
+    if (layer) {
+      Object.assign(layer, updates)
+      triggerAutoSave()
+    }
+  }
 
   // Auto-save: 500ms debounce
   let autoTimer: ReturnType<typeof setTimeout> | null = null
@@ -93,9 +125,13 @@ export const useProjectStore = defineStore('project', () => {
   }
 
   // Watch for deep changes
-  watch(currentProject, () => {
-    if (currentProject.value) triggerAutoSave()
-  }, { deep: true })
+  watch(
+    currentProject,
+    () => {
+      if (currentProject.value) triggerAutoSave()
+    },
+    { deep: true },
+  )
 
   // ----- Undo/Redo -----
   function pushHistory() {
@@ -128,10 +164,20 @@ export const useProjectStore = defineStore('project', () => {
   }
 
   return {
-    currentProject, metas, hasProject,
-    createProject, loadProject, saveCurrentProject,
-    deleteProject, getProjectList, triggerAutoSave,
-    undo, redo, pushHistory,
-    getSortedLayers, getNextZIndex,
+    currentProject,
+    metas,
+    hasProject,
+    createProject,
+    loadProject,
+    saveCurrentProject,
+    deleteProject,
+    getProjectList,
+    triggerAutoSave,
+    undo,
+    redo,
+    pushHistory,
+    getSortedLayers,
+    getNextZIndex,
+    updateLayer,
   }
 })

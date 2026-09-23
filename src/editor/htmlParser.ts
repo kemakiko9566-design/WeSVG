@@ -5,9 +5,7 @@ import { nodeMapper } from './nodeMapper'
 
 // ---- Canvas → HTML ----
 export function canvasToHtml(canvas: Canvas): string {
-  const sorted = [...canvas.layers]
-    .filter((l) => l.visible)
-    .sort((a, b) => a.zIndex - b.zIndex)
+  const sorted = [...canvas.layers].filter((l) => l.visible).sort((a, b) => a.zIndex - b.zIndex)
 
   const body = sorted.map((l) => layerToHtml(l)).join('\n')
 
@@ -53,7 +51,11 @@ function layerToHtml(layer: AnyLayer, indent = 4): string {
 }
 
 function escapeHtml(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
 }
 
 // ---- HTML → Canvas ----
@@ -99,8 +101,10 @@ function parseAttributes(str: string): Record<string, string> {
 function tagToLayer(tag: string, attrs: Record<string, string>, zIndex: number): AnyLayer | null {
   const x = parseNum(attrs.x) ?? parseNum(attrs.cx, 100)
   const y = parseNum(attrs.y) ?? parseNum(attrs.cy, 100)
-  const width = parseNum(attrs.width) ?? parseNum(attrs.r ? parseInt(attrs.r) * 2 : 200)
-  const height = parseNum(attrs.height) ?? parseNum(attrs.r ? parseInt(attrs.r) * 2 : 200)
+  const rStr = attrs.r
+  const rDoubled = rStr !== undefined ? String(parseInt(rStr) * 2) : undefined
+  const width = parseNum(attrs.width) ?? parseNum(rDoubled, 200)
+  const height = parseNum(attrs.height) ?? parseNum(rDoubled, 200)
   const opacity = parseNum(attrs.opacity, 1)
   const fill = attrs.fill
 
@@ -120,7 +124,14 @@ function tagToLayer(tag: string, attrs: Record<string, string>, zIndex: number):
       return {
         ...base,
         type: 'image' as const,
-        asset: { id: `asset_${generateId()}`, url: attrs.href ?? attrs.src ?? '', mimeType: 'image/png', size: 0, width, height },
+        asset: {
+          id: `asset_${generateId()}`,
+          url: attrs.href ?? attrs.src ?? '',
+          mimeType: 'image/png',
+          size: 0,
+          width,
+          height,
+        },
       } as AnyLayer
 
     case 'text': {
@@ -133,7 +144,12 @@ function tagToLayer(tag: string, attrs: Record<string, string>, zIndex: number):
         fontWeight: 400,
         lineHeight: 1.5,
         letterSpacing: 0,
-        textAlign: attrs['text-anchor'] === 'middle' ? 'center' : attrs['text-anchor'] === 'end' ? 'right' : 'left',
+        textAlign:
+          attrs['text-anchor'] === 'middle'
+            ? 'center'
+            : attrs['text-anchor'] === 'end'
+              ? 'right'
+              : 'left',
       } as unknown as AnyLayer
     }
 

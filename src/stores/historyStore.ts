@@ -1,7 +1,7 @@
 // History Store — Undo/Redo (50 steps)
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { CanvasProject } from '@/types'
+import type { Project } from '@/types'
 
 const MAX_STEPS = 50
 
@@ -12,7 +12,7 @@ export const useHistoryStore = defineStore('history', () => {
   const canUndo = computed(() => past.value.length > 0)
   const canRedo = computed(() => future.value.length > 0)
 
-  function pushState(project: CanvasProject) {
+  function pushState(project: Project) {
     const snapshot = JSON.stringify(project)
     // Don't push duplicate
     if (past.value[past.value.length - 1] === snapshot) return
@@ -22,14 +22,14 @@ export const useHistoryStore = defineStore('history', () => {
     future.value = [] // Clear redo on new action
   }
 
-  function undo(current: CanvasProject): CanvasProject | null {
+  function undo(current: Project): Project | null {
     if (!canUndo.value) return null
     future.value.push(JSON.stringify(current))
     const prev = past.value.pop()!
     return JSON.parse(prev)
   }
 
-  function redo(current: CanvasProject): CanvasProject | null {
+  function redo(current: Project): Project | null {
     if (!canRedo.value) return null
     past.value.push(JSON.stringify(current))
     const next = future.value.pop()!

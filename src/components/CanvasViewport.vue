@@ -1,4 +1,5 @@
-﻿﻿<script setup lang="ts">
+﻿﻿
+<script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch, computed } from 'vue'
 import Konva from 'konva'
 import { CanvasManager } from '@/canvas/CanvasManager'
@@ -41,21 +42,32 @@ const cropLayerId = ref<string | null>(null)
 const canvasWidth = computed(() => canvasStore.canvas?.width ?? 1080)
 const canvasHeight = computed(() => canvasStore.canvas?.height ?? 3000)
 
-const wrapperTransform = computed(() =>
-  `translate(${panX.value}px, ${panY.value}px) scale(${zoom.value})`,
+const wrapperTransform = computed(
+  () => `translate(${panX.value}px, ${panY.value}px) scale(${zoom.value})`,
 )
 
 // ---- Grid ----
 const gridStyle = computed(() => {
   const mode: GridMode = uiStore.gridMode
   if (mode === 'none') return {}
-  const base = { position: 'absolute' as const, inset: '0' as const, pointerEvents: 'none' as const, zIndex: 1 }
+  const base = {
+    position: 'absolute' as const,
+    inset: '0' as const,
+    pointerEvents: 'none' as const,
+    zIndex: 1,
+  }
   if (mode === 'dot') {
-    return { ...base, backgroundImage: 'radial-gradient(circle, #303030 1px, transparent 1px)', backgroundSize: '24px 24px', opacity: 0.5 }
+    return {
+      ...base,
+      backgroundImage: 'radial-gradient(circle, #303030 1px, transparent 1px)',
+      backgroundSize: '24px 24px',
+      opacity: 0.5,
+    }
   }
   return {
     ...base,
-    backgroundImage: 'linear-gradient(rgba(48,48,48,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(48,48,48,0.3) 1px, transparent 1px)',
+    backgroundImage:
+      'linear-gradient(rgba(48,48,48,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(48,48,48,0.3) 1px, transparent 1px)',
     backgroundSize: '24px 24px',
   }
 })
@@ -97,7 +109,8 @@ function renderAllLayers() {
   const stage = manager.getStage()
   let selectedId: string | null = null
   if (stage) {
-    const tr = layer.children.find((c) => c instanceof Konva.Transformer) as Konva.Transformer | undefined
+    const tr = layer.children.find((c) => c instanceof Konva.Transformer) as
+      Konva.Transformer | undefined
     if (tr && tr.nodes().length > 0) {
       selectedId = tr.nodes()[0].id()
     }
@@ -107,11 +120,15 @@ function renderAllLayers() {
   nodesToRemove.forEach((n) => n.destroy())
 
   const c = canvasStore.canvas
-  if (!c) { layer.draw(); return }
+  if (!c) {
+    layer.draw()
+    return
+  }
   const sorted = [...c.layers].filter((l) => l.visible).sort((a, b) => a.zIndex - b.zIndex)
   sorted.forEach((l) => {
     const node = CanvasObjectFactory.createFromLayer(l, () => layer.draw())
-    layer.add(node)
+    // Konva.Layer.add expects Shape | Group; the factory returns Konva.Node
+    layer.add(node as unknown as Konva.Shape)
     eventManager.bindNodeDrag(node)
   })
   layer.draw()
@@ -120,8 +137,10 @@ function renderAllLayers() {
   if (selectedId && stage) {
     const node = stage.findOne(`#${selectedId}`)
     if (node) {
-      const tr = layer.children.find((c) => c instanceof Konva.Transformer) as Konva.Transformer | undefined
-      tr?.nodes([node])
+      const tr = layer.children.find((c) => c instanceof Konva.Transformer) as
+        Konva.Transformer | undefined
+      // Konva Transformer requires Shape | Group; node from stage.findOne is Konva.Node
+      tr?.nodes([node as unknown as Konva.Shape])
       layer.draw()
     }
   }
@@ -164,8 +183,11 @@ function updateNodeProperties(layerId: string) {
 function fitToScreen() {
   const el = viewportRef.value
   if (!el) return
-  const vw = el.clientWidth, vh = el.clientHeight, pad = 80
-  const sx = (vw - pad) / canvasWidth.value, sy = (vh - pad) / canvasHeight.value
+  const vw = el.clientWidth,
+    vh = el.clientHeight,
+    pad = 80
+  const sx = (vw - pad) / canvasWidth.value,
+    sy = (vh - pad) / canvasHeight.value
   zoom.value = Math.min(Math.min(sx, sy), 1)
   panX.value = (vw - canvasWidth.value * zoom.value) / 2
   panY.value = (vh - canvasHeight.value * zoom.value) / 2
@@ -173,7 +195,8 @@ function fitToScreen() {
 
 function zoomAtPoint(nz: number, cx: number, cy: number) {
   const clamped = Math.min(Math.max(nz, MIN_ZOOM), MAX_ZOOM)
-  const oz = zoom.value; zoom.value = clamped
+  const oz = zoom.value
+  zoom.value = clamped
   panX.value = cx - ((cx - panX.value) / oz) * clamped
   panY.value = cy - ((cy - panY.value) / oz) * clamped
 }
@@ -187,33 +210,46 @@ function isInsideKonva(el: HTMLElement | null): boolean {
 }
 
 // ---- Code 鈫?Canvas highlight ----
-watch(() => uiStore.highlightLayer, (layerId) => {
-  if (!layerId) return
-  // Flash the selected layer on canvas via transformer
-  const stage = manager.getStage()
-  if (!stage) return
-  const node = stage.findOne(`#${layerId}`)
-  if (node && eventManager.transformer) {
-    const tr = eventManager.transformer
-    tr.nodes([node])
-    manager.getLayer()?.draw()
-    setTimeout(() => {
-      tr.nodes([])
+watch(
+  () => uiStore.highlightLayer,
+  (layerId) => {
+    if (!layerId) return
+    // Flash the selected layer on canvas via transformer
+    const stage = manager.getStage()
+    if (!stage) return
+    const node = stage.findOne(`#${layerId}`)
+    if (node && eventManager.transformer) {
+      const tr = eventManager.transformer
+      tr.nodes([node])
       manager.getLayer()?.draw()
-    }, 1500)
-  }
-})
+      setTimeout(() => {
+        tr.nodes([])
+        manager.getLayer()?.draw()
+      }, 1500)
+    }
+  },
+)
 
 // ---- Events ----
 function handleKeyDown(e: KeyboardEvent) {
-  if (e.code === 'Space' && !e.repeat) { e.preventDefault(); spaceHeld.value = true; uiStore.setSpaceHeld(true) }
+  if (e.code === 'Space' && !e.repeat) {
+    e.preventDefault()
+    spaceHeld.value = true
+    uiStore.setSpaceHeld(true)
+  }
 }
 function handleKeyUp(e: KeyboardEvent) {
-  if (e.code === 'Space') { spaceHeld.value = false; uiStore.setSpaceHeld(false); isPanning.value = false }
+  if (e.code === 'Space') {
+    spaceHeld.value = false
+    uiStore.setSpaceHeld(false)
+    isPanning.value = false
+  }
 }
 function handleWheel(e: WheelEvent) {
-  if (e.ctrlKey || e.metaKey) { e.preventDefault(); zoomAtPoint(zoom.value * (1 - e.deltaY * 0.001), e.clientX, e.clientY) }
-  else if (e.shiftKey) panX.value -= e.deltaY
+  if (e.ctrlKey || e.metaKey) {
+    e.preventDefault()
+    zoomAtPoint(zoom.value * (1 - e.deltaY * 0.001), e.clientX, e.clientY)
+  } else if (e.shiftKey) panX.value -= e.deltaY
   else panY.value -= e.deltaY
 }
 function handleMouseDown(e: MouseEvent) {
@@ -230,14 +266,22 @@ function handleMouseMove(e: MouseEvent) {
   panX.value = panStartOffset.value.x + (e.clientX - panStart.value.x)
   panY.value = panStartOffset.value.y + (e.clientY - panStart.value.y)
 }
-function handleMouseUp() { isPanning.value = false }
+function handleMouseUp() {
+  isPanning.value = false
+}
 function handleDoubleClick(e: MouseEvent) {
   if (!isInsideKonva(e.target as HTMLElement)) fitToScreen()
 }
 
 // ---- Crop ----
-function enterCrop(id: string) { cropMode.value = true; cropLayerId.value = id }
-function exitCrop() { cropMode.value = false; cropLayerId.value = null }
+function enterCrop(id: string) {
+  cropMode.value = true
+  cropLayerId.value = id
+}
+function exitCrop() {
+  cropMode.value = false
+  cropLayerId.value = null
+}
 function handleRemoveBg(layerId: string) {
   const layer = canvasStore.getLayers().find((l) => l.id === layerId)
   if (!layer || !layer.asset?.url) return
@@ -298,7 +342,8 @@ onMounted(() => {
   renderAllLayers()
 
   const el = viewportRef.value
-  const vw = el.clientWidth, vh = el.clientHeight
+  const vw = el.clientWidth,
+    vh = el.clientHeight
   zoom.value = 0.35
   panX.value = (vw - canvasWidth.value * zoom.value) / 2
   panY.value = (vh - canvasHeight.value * zoom.value) / 2
@@ -328,42 +373,45 @@ onMounted(() => {
 // Watch for any layer changes 鈫?re-render (with transformer preservation)
 // Fingerprint-based watcher: detects both structural and property changes
 // without requiring `deep: true`, and does incremental updates for property changes.
-watch(() => {
-  const ls = canvasStore.canvas?.layers
-  if (!ls) return ""
-  return ls
-    .map(
-      (l) =>
-        `${l.id}:${l.visible}:${l.transform.x}:${l.transform.y}:${l.transform.width}:${l.transform.height}:${l.transform.rotation}:${l.transform.opacity}`,
-    )
-    .join("|")
-}, (newFp, oldFp) => {
-  if (!newFp) return
-  if (!oldFp) {
-    renderAllLayers()
-    return
-  }
+watch(
+  () => {
+    const ls = canvasStore.canvas?.layers
+    if (!ls) return ''
+    return ls
+      .map(
+        (l) =>
+          `${l.id}:${l.visible}:${l.transform.x}:${l.transform.y}:${l.transform.width}:${l.transform.height}:${l.transform.rotation}:${l.transform.opacity}`,
+      )
+      .join('|')
+  },
+  (newFp, oldFp) => {
+    if (!newFp) return
+    if (!oldFp) {
+      renderAllLayers()
+      return
+    }
 
-  const newParts = newFp.split("|")
-  const oldParts = oldFp.split("|")
+    const newParts = newFp.split('|')
+    const oldParts = oldFp.split('|')
 
-  // Structural change (add/remove)  -> full re-render
-  if (newParts.length !== oldParts.length) {
-    renderAllLayers()
-    return
-  }
+    // Structural change (add/remove)  -> full re-render
+    if (newParts.length !== oldParts.length) {
+      renderAllLayers()
+      return
+    }
 
-  // Property change  -> incremental node update
-  if (newFp !== oldFp) {
-    for (let i = 0; i < newParts.length; i++) {
-      if (newParts[i] !== oldParts[i]) {
-        const layerId = newParts[i].split(":")[0]
-        updateNodeProperties(layerId)
-        break
+    // Property change  -> incremental node update
+    if (newFp !== oldFp) {
+      for (let i = 0; i < newParts.length; i++) {
+        if (newParts[i] !== oldParts[i]) {
+          const layerId = newParts[i].split(':')[0]
+          updateNodeProperties(layerId)
+          break
+        }
       }
     }
-  }
-})
+  },
+)
 
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeyDown)
@@ -407,14 +455,82 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.canvas-viewport { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg-canvas); cursor: default; }
-.canvas-viewport.space { cursor: grab; }
-.canvas-viewport.panning, .canvas-viewport.space.panning { cursor: grabbing; }
-.crop-overlay { position: absolute; inset: 0; z-index: 20; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; }
-.crop-hint { color: white; font-size: var(--text-sm); background: rgba(0,0,0,0.6); padding: 8px 16px; border-radius: var(--radius-md); pointer-events: none; }
-.canvas-wrapper { position: absolute; top: 0; left: 0; display: flex; align-items: center; justify-content: center; transform-origin: 0 0; will-change: transform; pointer-events: none; }
-.phone-frame { background: #0d0d0d; border-radius: 24px; padding: 8px; box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 20px 60px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.4); overflow: hidden; pointer-events: auto; }
-.phone-notch { height: 20px; background: #0d0d0d; }
-.konva-container { background: white; border-radius: 16px; overflow: hidden; pointer-events: auto; }
-.zoom-badge { position: absolute; bottom: var(--space-3); right: var(--space-3); padding: 3px 8px; background: var(--bg-elevated); border: 1px solid var(--border-primary); border-radius: var(--radius-sm); font-size: var(--text-xs); color: var(--text-tertiary); font-weight: var(--weight-medium); pointer-events: none; z-index: 10; }
+.canvas-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-canvas);
+  cursor: default;
+}
+.canvas-viewport.space {
+  cursor: grab;
+}
+.canvas-viewport.panning,
+.canvas-viewport.space.panning {
+  cursor: grabbing;
+}
+.crop-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.crop-hint {
+  color: white;
+  font-size: var(--text-sm);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  pointer-events: none;
+}
+.canvas-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: 0 0;
+  will-change: transform;
+  pointer-events: none;
+}
+.phone-frame {
+  background: #0d0d0d;
+  border-radius: 24px;
+  padding: 8px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 8px 24px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  pointer-events: auto;
+}
+.phone-notch {
+  height: 20px;
+  background: #0d0d0d;
+}
+.konva-container {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  pointer-events: auto;
+}
+.zoom-badge {
+  position: absolute;
+  bottom: var(--space-3);
+  right: var(--space-3);
+  padding: 3px 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  font-weight: var(--weight-medium);
+  pointer-events: none;
+  z-index: 10;
+}
 </style>
