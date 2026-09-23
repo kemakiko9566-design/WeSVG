@@ -14,12 +14,12 @@ Use **IndexedDB** as the primary persistence layer, with localStorage for lightw
 
 ## Alternatives Considered
 
-| Storage | Reason Rejected |
-|---|---|
-| **localStorage** | 5MB limit, no Blob support, sync API |
-| **IndexedDB only** | Async read for meta list adds latency |
+| Storage                      | Reason Rejected                               |
+| ---------------------------- | --------------------------------------------- |
+| **localStorage**             | 5MB limit, no Blob support, sync API          |
+| **IndexedDB only**           | Async read for meta list adds latency         |
 | **IndexedDB + localStorage** | ✅ Selected — fast meta access + blob storage |
-| **Cloud storage** | Requires backend, adds latency for MVP |
+| **Cloud storage**            | Requires backend, adds latency for MVP        |
 
 ## Consequences
 

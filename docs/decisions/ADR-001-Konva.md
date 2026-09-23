@@ -14,11 +14,11 @@ Use **Konva.js** as the primary canvas rendering library.
 
 ## Alternatives Considered
 
-| Library | Reason Rejected |
-|---|---|
-| **Fabric.js** | Slower on large canvases, less polished Transformer |
-| **Pixi.js** | Game-focused, no built-in selection/transform |
-| **HTML DOM** | Cannot render SVG interactively, performance limits |
+| Library        | Reason Rejected                                            |
+| -------------- | ---------------------------------------------------------- |
+| **Fabric.js**  | Slower on large canvases, less polished Transformer        |
+| **Pixi.js**    | Game-focused, no built-in selection/transform              |
+| **HTML DOM**   | Cannot render SVG interactively, performance limits        |
 | **Canvas API** | Too low-level, would need to build everything from scratch |
 
 ## Consequences
