@@ -29,7 +29,7 @@ gh pr create \
 2. 填写标题（见 `pr-body.md`）
 3. 粘贴正文（见 `pr-body.md`）
 4. 选择 Milestone：`v0.1.0 — 稳定编辑闭环 + CI 闸门`
-6. 创建 PR
+5. 创建 PR
 
 ## 3. 创建 5 个 Issue（任选一种）
 

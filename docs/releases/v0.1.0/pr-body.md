@@ -16,12 +16,12 @@
 
 包含 4 个语义清晰的 commit：
 
-| Commit | 说明 |
-|---|---|
-| `style(format)` | 整个项目格式化（prettier 统一风格，无逻辑变更） |
-| `fix(types)` | 修复 13 个既有的 TypeScript 错误，否则 strict build 会失败 |
-| `feat(ci)` | CI 闸门 + 首个 round-trip 测试 + 5 个 P0 Issue 模板 |
-| `docs(format+handover)` | prettier 重新格式化 3 个 ADR，并纳入未追踪的 HANDOVER.md |
+| Commit                  | 说明                                                       |
+| ----------------------- | ---------------------------------------------------------- |
+| `style(format)`         | 整个项目格式化（prettier 统一风格，无逻辑变更）            |
+| `fix(types)`            | 修复 13 个既有的 TypeScript 错误，否则 strict build 会失败 |
+| `feat(ci)`              | CI 闸门 + 首个 round-trip 测试 + 5 个 P0 Issue 模板        |
+| `docs(format+handover)` | prettier 重新格式化 3 个 ADR，并纳入未追踪的 HANDOVER.md   |
 
 ## 验证
 

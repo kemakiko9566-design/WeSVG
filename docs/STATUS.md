@@ -69,13 +69,13 @@ ADR-004 是架构目标，不是现状。`docs/WeSVG-开发文档.md` 已按 ADR
 
 `npm run typecheck / lint / format:check / test / build` 五项闸门全部跑通：
 
-| 命令 | 状态 | 说明 |
-|---|---|---|
-| `npm run typecheck` | ✅ PASS | `vue-tsc --noEmit`，0 错误 |
-| `npm run lint` | ✅ PASS | 0 错误，162 警告（既有代码风格，列入跟进） |
-| `npm run format:check` | ✅ PASS | 全部文件符合 Prettier 规范 |
-| `npm run test` | ✅ PASS | 4/4 测试通过（首个 round-trip 测试） |
-| `npm run build` | ✅ PASS | `vue-tsc -b && vite build`，含 13 个既有类型错误的修复 |
+| 命令                   | 状态    | 说明                                                   |
+| ---------------------- | ------- | ------------------------------------------------------ |
+| `npm run typecheck`    | ✅ PASS | `vue-tsc --noEmit`，0 错误                             |
+| `npm run lint`         | ✅ PASS | 0 错误，162 警告（既有代码风格，列入跟进）             |
+| `npm run format:check` | ✅ PASS | 全部文件符合 Prettier 规范                             |
+| `npm run test`         | ✅ PASS | 4/4 测试通过（首个 round-trip 测试）                   |
+| `npm run build`        | ✅ PASS | `vue-tsc -b && vite build`，含 13 个既有类型错误的修复 |
 
 GitHub Actions CI 配置文件：`.github/workflows/ci.yml`。
 
@@ -93,7 +93,7 @@ GitHub Actions CI 配置文件：`.github/workflows/ci.yml`。
 | Monaco 在 Firefox 下偶发无响应       | 文档超过 200 节点                                              | 编辑卡死                 | #67   |
 | 导出大图（>2MB）偶发 OOM             | 多张高分辨率图片同时存在                                       | 导出失败                 | #88   |
 | `Project` 接口未对齐 ADR-004         | 当前为 `version: string`，无 `schemaVersion`                   | 与新架构目标不符         | —     |
-| 既有代码 lint 警告                   | 多数 `unused vars` / `no-explicit-any`                          | 无功能影响               | —     |
+| 既有代码 lint 警告                   | 多数 `unused vars` / `no-explicit-any`                         | 无功能影响               | —     |
 
 ---
 
