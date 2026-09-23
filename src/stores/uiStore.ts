@@ -16,16 +16,32 @@ export const useUIStore = defineStore('ui', () => {
   // Highlight state for canvas ↔ code
   const highlightLayer = ref<string | null>(null)
 
-  function setGridMode(mode: GridMode) { gridMode.value = mode }
-  function toggleSnap() { snapEnabled.value = !snapEnabled.value }
-  function setSpaceHeld(v: boolean) { spaceHeld.value = v }
-  function setEditorMode(mode: EditorMode) { editorMode.value = mode }
-  function setHighlightLayer(id: string | null) { highlightLayer.value = id }
+  function setGridMode(mode: GridMode) {
+    gridMode.value = mode
+  }
+  function toggleSnap() {
+    snapEnabled.value = !snapEnabled.value
+  }
+  function setSpaceHeld(v: boolean) {
+    spaceHeld.value = v
+  }
+  function setEditorMode(mode: EditorMode) {
+    editorMode.value = mode
+  }
+  function setHighlightLayer(id: string | null) {
+    highlightLayer.value = id
+  }
 
   return {
-    gridMode, snapEnabled, spaceHeld,
-    editorMode, highlightLayer,
-    setGridMode, toggleSnap, setSpaceHeld,
-    setEditorMode, setHighlightLayer,
+    gridMode,
+    snapEnabled,
+    spaceHeld,
+    editorMode,
+    highlightLayer,
+    setGridMode,
+    toggleSnap,
+    setSpaceHeld,
+    setEditorMode,
+    setHighlightLayer,
   }
 })

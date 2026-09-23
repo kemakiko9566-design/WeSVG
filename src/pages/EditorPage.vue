@@ -19,10 +19,18 @@ const showDevicePreview = ref(false)
 const leftCollapsed = ref(false)
 const rightCollapsed = ref(false)
 
-function openExport() { showExport.value = true }
-function closeExport() { showExport.value = false }
-function openDevicePreview() { showDevicePreview.value = true }
-function closeDevicePreview() { showDevicePreview.value = false }
+function openExport() {
+  showExport.value = true
+}
+function closeExport() {
+  showExport.value = false
+}
+function openDevicePreview() {
+  showDevicePreview.value = true
+}
+function closeDevicePreview() {
+  showDevicePreview.value = false
+}
 </script>
 
 <template>

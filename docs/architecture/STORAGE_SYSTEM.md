@@ -61,6 +61,7 @@ Editor mounts → canvas renders
 ## Auto-Save Triggers
 
 Any of the following trigger a 500ms debounced save:
+
 - Layer added/removed/reordered
 - Layer properties changed (position, style, visibility)
 - Layer locked/unlocked
@@ -70,10 +71,10 @@ Any of the following trigger a 500ms debounced save:
 
 ## IndexedDB Schema v3
 
-| Object Store | Key | Value |
-|---|---|---|
-| `projects` | `id` | `{ id, data: string, ts: number }` |
-| `assets` | `id` | `{ id, blob: Blob, meta: object, ts: number }` |
+| Object Store | Key  | Value                                          |
+| ------------ | ---- | ---------------------------------------------- |
+| `projects`   | `id` | `{ id, data: string, ts: number }`             |
+| `assets`     | `id` | `{ id, blob: Blob, meta: object, ts: number }` |
 
 ## Known Limitations
 

@@ -79,11 +79,11 @@ After completing any major task within a milestone, update the corresponding sec
 
 ## When to Read What
 
-| Scenario | Read This |
-|---|---|
-| First time on project | PROJECT_CONTEXT.json → PROJECT_MASTER.md → MILESTONE_SUMMARY.md |
-| Resume work after break | MILESTONE_SUMMARY.md (last 2) |
-| Debug a known issue | BUG_LOG.md |
-| Understand a system | docs/architecture/{system}.md |
-| Make a design decision | docs/decisions/ADR-*.md |
-| Everything else | Source code |
+| Scenario                | Read This                                                       |
+| ----------------------- | --------------------------------------------------------------- |
+| First time on project   | PROJECT_CONTEXT.json → PROJECT_MASTER.md → MILESTONE_SUMMARY.md |
+| Resume work after break | MILESTONE_SUMMARY.md (last 2)                                   |
+| Debug a known issue     | BUG_LOG.md                                                      |
+| Understand a system     | docs/architecture/{system}.md                                   |
+| Make a design decision  | docs/decisions/ADR-*.md                                         |
+| Everything else         | Source code                                                     |

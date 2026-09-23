@@ -36,12 +36,16 @@ export async function compressImage(file: File): Promise<CompressionResult> {
 
       ctx.drawImage(img, 0, 0, width, height)
       const mimeType = file.type === 'image/png' ? 'image/png' : 'image/jpeg'
-      canvas.toBlob((blob) => {
-        if (!blob) return reject(new Error('Compression failed'))
-        const url = URL.createObjectURL(blob)
-        console.log('[Image] compressed:', width, height, `${(blob.size / 1024).toFixed(1)}KB`)
-        resolve({ blob, url, width, height, size: blob.size })
-      }, mimeType, quality)
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) return reject(new Error('Compression failed'))
+          const url = URL.createObjectURL(blob)
+          console.log('[Image] compressed:', width, height, `${(blob.size / 1024).toFixed(1)}KB`)
+          resolve({ blob, url, width, height, size: blob.size })
+        },
+        mimeType,
+        quality,
+      )
     }
     img.onerror = () => reject(new Error('Failed to load image'))
     img.src = URL.createObjectURL(file)

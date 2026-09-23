@@ -7,8 +7,12 @@ import { useProjectStore } from './stores/projectStore'
 const projectStore = useProjectStore()
 const currentPage = ref<'home' | 'editor'>('home')
 
-function navigateToEditor() { currentPage.value = 'editor' }
-function navigateToHome() { currentPage.value = 'home' }
+function navigateToEditor() {
+  currentPage.value = 'editor'
+}
+function navigateToHome() {
+  currentPage.value = 'home'
+}
 
 // Global keyboard shortcuts
 function handleKeydown(e: KeyboardEvent) {

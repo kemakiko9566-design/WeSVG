@@ -15,39 +15,46 @@
 ## ✨ 核心特性
 
 ### 🎨 多模式编辑器
+
 - **Design 模式** — 纯画布拖拽设计
 - **Split 模式** — 画布与代码同屏对照
 - **Code 模式** — Monaco 编辑器直接编写 HTML
 - **AI 模式** — 自然语言生成可编辑画布
 
 ### 🖼️ 画布与图层
+
 - 基于 **Konva** 的高性能矢量画布（缩放 / 平移 / 网格）
 - 完整的图层系统：增删 / 排序 / 可见 / 锁定
 - Canva 风格的选择体验（橙色高亮、白色控制柄）
 - 浮动工具栏：锁定 / 复制 / 删除 / 旋转 / 抠图 / 裁剪
 
 ### 📱 设备预览
+
 - 手机 / 平板 / 折叠屏 / 桌面 四种视口实时预览
 - 一键切换，贴近真实展示效果
 
 ### 💾 持久化与历史
+
 - **500ms 防抖** 自动保存到 IndexedDB
 - **50 步** 撤销 / 重做（`Ctrl+Z` / `Ctrl+Shift+Z` / `Ctrl+Y`）
 - 基于快照的 History Store
 - 图片资源以 Blob 形式持久化（`AssetManager`）
 
 ### 🔁 可视 ↔ 代码双向同步
+
 - 画布点击 → 代码行高亮
 - 代码行点击 → 画布图层定位
 - HTML ↔ Canvas 解析器（`NodeMapper` / `htmlParser`）
 - 500ms 防抖实时同步
 
 ### 🤖 AI 辅助（M2 / M3 路线中）
+
 - `RenderAgent` 智能体调度
 - `PromptBuilder` 提示词构建
 - `OutputValidator` 输出安全校验
 
 ### 📤 一键导出
+
 - 复制 HTML 到剪贴板
 - 下载 HTML / SVG / JSON
 - 微信兼容性校验（M5 路线中）
@@ -56,16 +63,16 @@
 
 ## 🧰 技术栈
 
-| 类别 | 选型 |
-| --- | --- |
-| 前端框架 | Vue 3.5 (`<script setup>`) |
-| 语言 | TypeScript 6.0 |
-| 构建工具 | Vite 8.0 |
-| 画布引擎 | Konva 10.3 + vue-konva 3.4 |
-| 代码编辑 | Monaco Editor 0.55 |
-| 状态管理 | Pinia 3.0 |
-| 本地存储 | IndexedDB |
-| 后端服务 | Node.js + Fastify（抠图 API） |
+| 类别     | 选型                                     |
+| -------- | ---------------------------------------- |
+| 前端框架 | Vue 3.5 (`<script setup>`)               |
+| 语言     | TypeScript 6.0                           |
+| 构建工具 | Vite 8.0                                 |
+| 画布引擎 | Konva 10.3 + vue-konva 3.4               |
+| 代码编辑 | Monaco Editor 0.55                       |
+| 状态管理 | Pinia 3.0                                |
+| 本地存储 | IndexedDB                                |
+| 后端服务 | Node.js + Fastify（抠图 API）            |
 | 抠图模型 | RMBG-2.0（@xenova/transformers，待集成） |
 
 ---
@@ -73,6 +80,7 @@
 ## 🚀 快速开始
 
 ### 环境要求
+
 - Node.js ≥ 18
 - pnpm / npm / yarn（任选）
 
@@ -170,6 +178,7 @@ WeSVG Studio/
 > 📖 详细架构设计参见 [`docs/architecture/ARCHITECTURE.md`](docs/architecture/ARCHITECTURE.md)
 
 ### 关键设计决策
+
 - **单一数据源**：所有状态走 Pinia，组件只读取
 - **三层画布**：workspace（背景）/ design（图层）/ UI（控制柄）
 - **CSS Transform 缩放**：用 `transform: scale()` 而非 Konva stage 缩放，性能更好
@@ -180,14 +189,14 @@ WeSVG Studio/
 
 ## 🗺️ 路线图
 
-| 里程碑 | 主题 | 状态 |
-| --- | --- | --- |
-| **M1** | 编辑器核心稳定化 | 🚧 进行中（~70%） |
-| **M2** | AI 抠图与导出打磨 | 📋 计划中 |
-| **M3** | AI 内容生成 | 📋 计划中 |
-| **M4** | 可视 ↔ 代码同步 | ✅ 已完成基础 |
-| **M5** | 微信兼容性引擎 | 🚧 进行中 |
-| **M6** | 模板市场与协作 | 💭 远期规划 |
+| 里程碑 | 主题              | 状态              |
+| ------ | ----------------- | ----------------- |
+| **M1** | 编辑器核心稳定化  | 🚧 进行中（~70%） |
+| **M2** | AI 抠图与导出打磨 | 📋 计划中         |
+| **M3** | AI 内容生成       | 📋 计划中         |
+| **M4** | 可视 ↔ 代码同步   | ✅ 已完成基础     |
+| **M5** | 微信兼容性引擎    | 🚧 进行中         |
+| **M6** | 模板市场与协作    | 💭 远期规划       |
 
 > 📖 详情见 [`docs/ROADMAP.md`](docs/ROADMAP.md)
 
@@ -195,13 +204,13 @@ WeSVG Studio/
 
 ## 🐛 已知问题与修复
 
-| ID | 标题 | 状态 |
-| --- | --- | --- |
-| BUG-001 | 重启后图片丢失 | ✅ Fixed |
+| ID      | 标题                 | 状态     |
+| ------- | -------------------- | -------- |
+| BUG-001 | 重启后图片丢失       | ✅ Fixed |
 | BUG-002 | 修改颜色导致位置重置 | ✅ Fixed |
-| BUG-003 | 跳转后页面空白 | ✅ Fixed |
-| BUG-004 | 文本/图形点击无效 | ✅ Fixed |
-| BUG-005 | 上传图片不显示 | ✅ Fixed |
+| BUG-003 | 跳转后页面空白       | ✅ Fixed |
+| BUG-004 | 文本/图形点击无效    | ✅ Fixed |
+| BUG-005 | 上传图片不显示       | ✅ Fixed |
 
 > 完整记录见 [`docs/BUG_LOG.md`](docs/BUG_LOG.md)
 
@@ -218,6 +227,7 @@ WeSVG Studio/
 5. 提交 Pull Request
 
 请遵循：
+
 - 提交信息遵循 [Conventional Commits](https://www.conventionalcommits.org/)
 - 重要决策请先在 [`docs/decisions/`](docs/decisions/) 写 ADR
 - Bug 修复请同步更新 `docs/BUG_LOG.md`

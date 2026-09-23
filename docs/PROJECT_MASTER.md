@@ -1,12 +1,12 @@
 # WeSVG Studio — Project Master
 
-| Field | Value |
-|---|---|
-| **Project** | WeSVG Studio |
-| **Version** | 0.3.2 |
+| Field                 | Value                          |
+| --------------------- | ------------------------------ |
+| **Project**           | WeSVG Studio                   |
+| **Version**           | 0.3.2                          |
 | **Current Milestone** | M1 — Editor Core Stabilization |
-| **Status** | In Progress |
-| **Last Updated** | 2026-06-18 |
+| **Status**            | In Progress                    |
+| **Last Updated**      | 2026-06-18                     |
 
 ## Completed Modules
 
@@ -39,13 +39,13 @@
 
 ## Known Issues
 
-| ID | Title | Status |
-|---|---|---|
-| BUG-001 | Image lost after restart | Fixed |
-| BUG-002 | Color change resets position | Fixed |
-| BUG-003 | Blank page on navigation | Fixed |
-| BUG-004 | Text/Shape click not working | Fixed |
-| BUG-005 | Image not displaying on canvas | Fixed |
+| ID      | Title                          | Status |
+| ------- | ------------------------------ | ------ |
+| BUG-001 | Image lost after restart       | Fixed  |
+| BUG-002 | Color change resets position   | Fixed  |
+| BUG-003 | Blank page on navigation       | Fixed  |
+| BUG-004 | Text/Shape click not working   | Fixed  |
+| BUG-005 | Image not displaying on canvas | Fixed  |
 
 ## Next Milestone
 
@@ -59,23 +59,23 @@
 
 ## Document Index
 
-| Document | Path |
-|---|---|
-| Context Compression Rule | `docs/CONTEXT_COMPRESSION_RULE.md` |
-| Project Master | `docs/PROJECT_MASTER.md` |
-| Project Context | `docs/PROJECT_CONTEXT.json` |
-| Agent Rules | `docs/AGENT_RULES.md` |
-| Bug Log | `docs/BUG_LOG.md` |
-| Roadmap | `docs/ROADMAP.md` |
-| Architecture Overview | `docs/architecture/ARCHITECTURE.md` |
-| Canvas System | `docs/architecture/CANVAS_SYSTEM.md` |
-| Asset System | `docs/architecture/ASSET_SYSTEM.md` |
-| Storage System | `docs/architecture/STORAGE_SYSTEM.md` |
-| UI Design System | `docs/architecture/UI_DESIGN_SYSTEM.md` |
-| Visual Code Sync | `docs/architecture/VISUAL_CODE_SYNC.md` |
-| Export Engine | `docs/architecture/EXPORT_ENGINE.md` |
-| AI Renderer | `docs/architecture/AI_RENDERER.md` |
-| M1 Report | `docs/reports/M1_REPORT.md` |
-| ADR-001 | `docs/decisions/ADR-001-Konva.md` |
-| ADR-002 | `docs/decisions/ADR-002-IndexedDB.md` |
-| ADR-003 | `docs/decisions/ADR-003-Monaco.md` |
+| Document                 | Path                                    |
+| ------------------------ | --------------------------------------- |
+| Context Compression Rule | `docs/CONTEXT_COMPRESSION_RULE.md`      |
+| Project Master           | `docs/PROJECT_MASTER.md`                |
+| Project Context          | `docs/PROJECT_CONTEXT.json`             |
+| Agent Rules              | `docs/AGENT_RULES.md`                   |
+| Bug Log                  | `docs/BUG_LOG.md`                       |
+| Roadmap                  | `docs/ROADMAP.md`                       |
+| Architecture Overview    | `docs/architecture/ARCHITECTURE.md`     |
+| Canvas System            | `docs/architecture/CANVAS_SYSTEM.md`    |
+| Asset System             | `docs/architecture/ASSET_SYSTEM.md`     |
+| Storage System           | `docs/architecture/STORAGE_SYSTEM.md`   |
+| UI Design System         | `docs/architecture/UI_DESIGN_SYSTEM.md` |
+| Visual Code Sync         | `docs/architecture/VISUAL_CODE_SYNC.md` |
+| Export Engine            | `docs/architecture/EXPORT_ENGINE.md`    |
+| AI Renderer              | `docs/architecture/AI_RENDERER.md`      |
+| M1 Report                | `docs/reports/M1_REPORT.md`             |
+| ADR-001                  | `docs/decisions/ADR-001-Konva.md`       |
+| ADR-002                  | `docs/decisions/ADR-002-IndexedDB.md`   |
+| ADR-003                  | `docs/decisions/ADR-003-Monaco.md`      |

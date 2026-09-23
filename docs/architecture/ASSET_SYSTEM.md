@@ -33,13 +33,13 @@ Canvas renders via loadAssetAsUrl(assetId)
 
 ```typescript
 interface AssetRecord {
-  id: string            // "asset_xxx"
-  name: string          // Original filename
-  mimeType: string      // "image/png", "image/jpeg"
-  width: number         // Pixel width
-  height: number        // Pixel height
-  blob: Blob            // Actual image data
-  createdAt: number     // Timestamp
+  id: string // "asset_xxx"
+  name: string // Original filename
+  mimeType: string // "image/png", "image/jpeg"
+  width: number // Pixel width
+  height: number // Pixel height
+  blob: Blob // Actual image data
+  createdAt: number // Timestamp
 }
 ```
 
@@ -52,12 +52,12 @@ interface AssetRecord {
 
 ## API
 
-| Function | Description |
-|---|---|
-| `storeAsset(blob, name, meta)` | Store blob, return handle |
-| `loadAssetAsUrl(assetId)` | Load blob, return object URL |
-| `getAssetList()` | List all stored assets (metadata only) |
-| `deleteAsset(assetId)` | Remove blob from IndexedDB |
+| Function                       | Description                            |
+| ------------------------------ | -------------------------------------- |
+| `storeAsset(blob, name, meta)` | Store blob, return handle              |
+| `loadAssetAsUrl(assetId)`      | Load blob, return object URL           |
+| `getAssetList()`               | List all stored assets (metadata only) |
+| `deleteAsset(assetId)`         | Remove blob from IndexedDB             |
 
 ## Known Limitations
 

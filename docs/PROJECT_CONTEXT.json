@@ -30,12 +30,7 @@
     "NodeMapper",
     "HtmlCanvasParser"
   ],
-  "inProgress": [
-    "ImagePersistence",
-    "LayerPanelIntegration",
-    "RefreshRecovery",
-    "AssetBrowser"
-  ],
+  "inProgress": ["ImagePersistence", "LayerPanelIntegration", "RefreshRecovery", "AssetBrowser"],
   "knownIssues": [
     "BUG-001: Image lost after restart — Fixed",
     "BUG-002: Color change resets position — Fixed",

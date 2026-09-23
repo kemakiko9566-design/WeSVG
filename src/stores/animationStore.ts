@@ -20,7 +20,12 @@ export const useAnimationStore = defineStore('animation', () => {
     return layer?.animation ?? []
   }
 
-  function addAnimation(layerId: string, preset: AnimationPreset, trigger: Trigger, config: Record<string, unknown> = {}) {
+  function addAnimation(
+    layerId: string,
+    preset: AnimationPreset,
+    trigger: Trigger,
+    config: Record<string, unknown> = {},
+  ) {
     const animation: Animation = {
       id: `anim_${generateId()}`,
       type: preset,

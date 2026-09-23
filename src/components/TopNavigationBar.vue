@@ -36,14 +36,23 @@ function setMode(mode: EditorMode) {
   <nav class="navbar">
     <div class="navbar-left">
       <button class="icon-btn" title="Back to Home" @click="emit('back-home')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
       </button>
       <div class="logo">
         <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
-          <rect width="32" height="32" rx="6" fill="#ff6a00"/>
-          <path d="M8 10h16v3H8zM8 16h12v3H8zM8 22h16v3H8z" fill="white" fill-opacity="0.9"/>
+          <rect width="32" height="32" rx="6" fill="#ff6a00" />
+          <path d="M8 10h16v3H8zM8 16h12v3H8zM8 22h16v3H8z" fill="white" fill-opacity="0.9" />
         </svg>
         <span class="logo-text">WeSVG</span>
       </div>
@@ -66,31 +75,67 @@ function setMode(mode: EditorMode) {
 
     <div class="navbar-right">
       <button class="icon-btn" title="Device Preview" @click="emit('open-device-preview')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="5" y="2" width="14" height="20" rx="2"/>
-          <line x1="12" y1="18" x2="12.01" y2="18"/>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="5" y="2" width="14" height="20" rx="2" />
+          <line x1="12" y1="18" x2="12.01" y2="18" />
         </svg>
       </button>
       <button class="icon-btn" title="Save" @click="save">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
-          <polyline points="17 21 17 13 7 13 7 21"/>
-          <polyline points="7 3 7 8 15 8"/>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
+          <polyline points="17 21 17 13 7 13 7 21" />
+          <polyline points="7 3 7 8 15 8" />
         </svg>
       </button>
       <div class="divider"></div>
       <button class="btn btn-export" @click="emit('open-export')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-          <polyline points="7 10 12 15 17 10"/>
-          <line x1="12" y1="15" x2="12" y2="3"/>
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
         </svg>
         Export
       </button>
       <button class="btn btn-publish">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 2L11 13"/>
-          <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M22 2L11 13" />
+          <path d="M22 2l-7 20-4-9-9-4 20-7z" />
         </svg>
         Publish
       </button>
@@ -210,17 +255,22 @@ function setMode(mode: EditorMode) {
   border: 1px solid var(--border-primary);
 }
 
-.btn-export:hover { background: var(--border-primary); }
+.btn-export:hover {
+  background: var(--border-primary);
+}
 
 .btn-publish {
   background: var(--accent);
   color: white;
 }
 
-.btn-publish:hover { background: var(--accent-hover); }
+.btn-publish:hover {
+  background: var(--accent-hover);
+}
 
 .avatar {
-  width: 28px; height: 28px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--radius-full);
   background: var(--bg-panel-hover);
   border: 1px solid var(--border-primary);

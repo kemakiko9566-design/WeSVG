@@ -22,11 +22,7 @@ export class RenderAgent {
 
     try {
       // Phase 1: Build prompt
-      const prompt = this.promptBuilder.build(canvas, [
-        '禁止script',
-        '禁止iframe',
-        '仅允许svg动画',
-      ])
+      const prompt = this.promptBuilder.build(canvas, ['禁止script', '禁止iframe', '仅允许svg动画'])
 
       // Phase 2: Try calling LLM via API
       const aiResult = await this.callLLM(prompt)
@@ -122,7 +118,10 @@ export class RenderAgent {
           break
         case 'UNKNOWN_TAG':
           // Replace unknown tags with div
-          fixed = fixed.replace(/<(?!\/?(section|div|span|img|svg|g|path|rect|circle|text|animate|animateTransform|clipPath|mask|style|br|p|strong|em|h1|h2|h3|h4|h5|h6|ul|ol|li|table|tr|td|th|caption|colgroup|col|thead|tbody|tfoot)\b)(\w+)/gi, '<div')
+          fixed = fixed.replace(
+            /<(?!\/?(section|div|span|img|svg|g|path|rect|circle|text|animate|animateTransform|clipPath|mask|style|br|p|strong|em|h1|h2|h3|h4|h5|h6|ul|ol|li|table|tr|td|th|caption|colgroup|col|thead|tbody|tfoot)\b)(\w+)/gi,
+            '<div',
+          )
           break
         case 'INVALID_ANIMATION':
           // Replace invalid animation with fade-in

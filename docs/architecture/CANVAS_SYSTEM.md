@@ -54,34 +54,34 @@ Konva Stage re-draw
 
 ## Key Components
 
-| Component | Path | Responsibility |
-|---|---|---|
-| `CanvasManager` | `src/canvas/CanvasManager.ts` | Konva Stage lifecycle |
-| `CanvasObjectFactory` | `src/canvas/CanvasObjectFactory.ts` | Layer → Konva Node |
-| `CanvasEventManager` | `src/canvas/CanvasEventManager.ts` | Selection, Transformer, callbacks |
-| `CanvasViewport` | `src/components/CanvasViewport.vue` | Zoom, pan, grid, crop, orchestration |
-| `SelectionToolbar` | `src/components/SelectionToolbar.vue` | Floating action bar |
-| `TextEditorOverlay` | `src/components/TextEditorOverlay.vue` | Inline text editing |
+| Component             | Path                                   | Responsibility                       |
+| --------------------- | -------------------------------------- | ------------------------------------ |
+| `CanvasManager`       | `src/canvas/CanvasManager.ts`          | Konva Stage lifecycle                |
+| `CanvasObjectFactory` | `src/canvas/CanvasObjectFactory.ts`    | Layer → Konva Node                   |
+| `CanvasEventManager`  | `src/canvas/CanvasEventManager.ts`     | Selection, Transformer, callbacks    |
+| `CanvasViewport`      | `src/components/CanvasViewport.vue`    | Zoom, pan, grid, crop, orchestration |
+| `SelectionToolbar`    | `src/components/SelectionToolbar.vue`  | Floating action bar                  |
+| `TextEditorOverlay`   | `src/components/TextEditorOverlay.vue` | Inline text editing                  |
 
 ## Zoom System
 
-| Property | Value |
-|---|---|
-| Range | 10% – 800% |
-| Default | 35% |
-| Center | Cursor position |
-| Method | CSS transform on wrapper |
+| Property  | Value                      |
+| --------- | -------------------------- |
+| Range     | 10% – 800%                 |
+| Default   | 35%                        |
+| Center    | Cursor position            |
+| Method    | CSS transform on wrapper   |
 | Animation | Instant (no interpolation) |
 
 ## Pan System
 
-| Trigger | Behavior |
-|---|---|
-| Space + LMB drag | Pan canvas |
-| Middle mouse button | Pan canvas |
-| Background click + drag | Pan canvas |
-| Scroll wheel | Vertical scroll |
-| Shift + scroll wheel | Horizontal scroll |
+| Trigger                 | Behavior          |
+| ----------------------- | ----------------- |
+| Space + LMB drag        | Pan canvas        |
+| Middle mouse button     | Pan canvas        |
+| Background click + drag | Pan canvas        |
+| Scroll wheel            | Vertical scroll   |
+| Shift + scroll wheel    | Horizontal scroll |
 
 ## Known Limitations
 

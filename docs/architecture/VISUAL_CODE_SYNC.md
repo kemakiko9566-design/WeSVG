@@ -1,6 +1,7 @@
 # Visual ↔ Code Sync Architecture
 
 ## Purpose
+
 Enable bidirectional synchronization between the visual canvas and the HTML code editor.
 
 ## Core Concept
@@ -20,6 +21,7 @@ All changes must pass through the AST layer. Neither canvas nor HTML directly mo
 ## Data Flow
 
 ### Canvas → Code
+
 ```
 User selects layer on canvas
   ↓
@@ -35,6 +37,7 @@ MonacoEditor reveals line + highlights orange (1500ms)
 ```
 
 ### Code → Canvas
+
 ```
 User clicks code line in Monaco
   ↓
@@ -65,6 +68,7 @@ nodeMapper.getByNodeId('node_abc123') → { layerId, nodeId }
 ## HTML ↔ Canvas Conversion
 
 ### Canvas → HTML (`canvasToHtml()`)
+
 - Traverses sorted layers
 - Generates `<section>` + `<svg>` wrapper
 - Sets `viewBox`, `width: 100%`, `height: auto`
@@ -72,6 +76,7 @@ nodeMapper.getByNodeId('node_abc123') → { layerId, nodeId }
 - `data-layer-id` and `data-node-id` attributes added
 
 ### HTML → Canvas (`htmlToCanvas()`)
+
 - Regex-based tag parser (for supported subset)
 - Extracts attributes: x, y, width, height, fill, opacity
 - Creates corresponding layer objects with generated IDs

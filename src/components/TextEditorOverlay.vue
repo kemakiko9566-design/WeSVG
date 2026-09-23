@@ -2,9 +2,15 @@
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 
 const props = defineProps<{
-  x: number; y: number; width: number; height: number
-  text: string; fontSize: number; fontFamily: string
-  textAlign: string; fill: string
+  x: number
+  y: number
+  width: number
+  height: number
+  text: string
+  fontSize: number
+  fontFamily: string
+  textAlign: string
+  fill: string
   scale: number
 }>()
 
