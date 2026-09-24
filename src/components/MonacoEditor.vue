@@ -49,8 +49,11 @@ onMounted(() => {
 
   // Listen for click on gutter/line to get line number
   editor.onMouseDown((e) => {
-    if (e.target.type === monaco.editor.MouseTargetType.GUTTER_LINE_NUMBERS ||
-        e.target.type === monaco.editor.MouseTargetType.CONTENT_LINE) {
+    const targetType = e.target.type
+    if (
+      targetType === monaco.editor.MouseTargetType.GUTTER_LINE_NUMBERS ||
+      targetType === monaco.editor.MouseTargetType.CONTENT_TEXT
+    ) {
       const line = e.target.position?.lineNumber
       if (line) {
         emit('line-click', line)
@@ -60,37 +63,45 @@ onMounted(() => {
 })
 
 // Sync external value changes into editor
-watch(() => props.modelValue, (val) => {
-  if (editor && editor.getValue() !== val) {
-    editor.setValue(val)
-  }
-})
+watch(
+  () => props.modelValue,
+  (val) => {
+    if (editor && editor.getValue() !== val) {
+      editor.setValue(val)
+    }
+  },
+)
 
 // Highlight a specific line
-watch(() => props.highlightLine, (line) => {
-  if (!editor) return
-  // Clear old decorations
-  decorations = editor.deltaDecorations(decorations, [])
+watch(
+  () => props.highlightLine,
+  (line) => {
+    if (!editor) return
+    // Clear old decorations
+    decorations = editor.deltaDecorations(decorations, [])
 
-  if (line !== null && line !== undefined) {
-    decorations = editor.deltaDecorations(decorations, [
-      {
-        range: new monaco.Range(line, 1, line, 1),
-        options: {
-          isWholeLine: true,
-          className: 'code-highlight-line',
-          linesDecorationsClassName: 'code-highlight-gutter',
+    if (line !== null && line !== undefined) {
+      decorations = editor.deltaDecorations(decorations, [
+        {
+          range: new monaco.Range(line, 1, line, 1),
+          options: {
+            isWholeLine: true,
+            className: 'code-highlight-line',
+            linesDecorationsClassName: 'code-highlight-gutter',
+          },
         },
-      },
-    ])
-    editor.revealLineInCenter(line)
+      ])
+      editor.revealLineInCenter(line)
 
-    // Auto-clear after 1500ms
-    setTimeout(() => {
-      decorations = editor.deltaDecorations(decorations, [])
-    }, 1500)
-  }
-})
+      // Auto-clear after 1500ms
+      setTimeout(() => {
+        if (editor) {
+          decorations = editor.deltaDecorations(decorations, [])
+        }
+      }, 1500)
+    }
+  },
+)
 
 onUnmounted(() => {
   editor?.dispose()

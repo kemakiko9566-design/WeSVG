@@ -98,13 +98,15 @@ export async function deleteAsset(id: string) {
   db.close()
 }
 
-export async function listAllAssets(): Promise<{ id: string; meta: Record<string, unknown>; ts: number }[]> {
+export async function listAllAssets(): Promise<
+  { id: string; meta: Record<string, unknown>; ts: number }[]
+> {
   const db = await openDB()
   const tx = db.transaction(ASSETS_STORE, 'readonly')
   return new Promise((resolve) => {
     const getAll = tx.objectStore(ASSETS_STORE).getAll()
     getAll.onsuccess = () => {
-      const items = (getAll.result ?? [])
+      const items = getAll.result ?? []
       resolve(items.map((r: any) => ({ id: r.id, meta: r.meta, ts: r.ts })))
     }
     getAll.onerror = () => resolve([])

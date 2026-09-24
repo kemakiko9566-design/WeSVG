@@ -119,7 +119,7 @@ export class AnimationRegistry {
 
   static getSVGAnimationMapping(
     preset: AnimationPreset,
-    config: AnimationConfig,
+    config: AnimationConfig & { config?: Record<string, unknown> },
   ): string {
     const mappings: Record<AnimationPreset, string> = {
       'slide-up': `
@@ -160,7 +160,7 @@ export class AnimationRegistry {
           begin="click"
           fill="freeze"
         />`,
-      'rotate': `
+      rotate: `
         <animateTransform
           attributeName="transform"
           type="rotate"
@@ -190,7 +190,7 @@ export class AnimationRegistry {
           begin="click"
           fill="freeze"
         />`,
-      'pulse': `
+      pulse: `
         <animateTransform
           attributeName="transform"
           type="scale"
@@ -199,7 +199,7 @@ export class AnimationRegistry {
           begin="${config.delay}ms"
           repeatCount="2"
         />`,
-      'float': `
+      float: `
         <animateTransform
           attributeName="transform"
           type="translate"
@@ -217,7 +217,7 @@ export class AnimationRegistry {
           begin="click"
           fill="freeze"
         />`,
-      'parallax': '',
+      parallax: '',
     }
 
     return mappings[preset]

@@ -14,12 +14,12 @@ Use **Monaco Editor** (VSCode's editor) for code editing in Split and Code modes
 
 ## Alternatives Considered
 
-| Editor | Reason Rejected |
-|---|---|
-| **CodeMirror 6** | Less feature-rich, no built-in minimap |
-| **Ace Editor** | Less maintained, older architecture |
-| **ContentEditable** | Too primitive, no syntax highlighting |
-| **Prism.js** | Read-only highlighting, no editing |
+| Editor              | Reason Rejected                        |
+| ------------------- | -------------------------------------- |
+| **CodeMirror 6**    | Less feature-rich, no built-in minimap |
+| **Ace Editor**      | Less maintained, older architecture    |
+| **ContentEditable** | Too primitive, no syntax highlighting  |
+| **Prism.js**        | Read-only highlighting, no editing     |
 
 ## Consequences
 

@@ -1,30 +1,34 @@
 # Milestone Report Template
 
 ## Goal
+
 [One-sentence description of milestone objective]
 
 ## Duration
+
 [Start date] to [End date]
 
 ## Features Implemented
 
-| Feature | Status | Description |
-|---|---|---|
+| Feature     | Status   | Description         |
+| ----------- | -------- | ------------------- |
 | [Feature 1] | ✅/⏳/❌ | [Brief description] |
 | [Feature 2] | ✅/⏳/❌ | [Brief description] |
 
 ## Files Modified
 
 ### New Files
+
 - `path/to/file.ts` — Purpose
 
 ### Modified Files
+
 - `path/to/file.ts` — What changed
 
 ## Known Issues
 
-| ID | Title | Status |
-|---|---|---|
+| ID  | Title | Status |
+| --- | ----- | ------ |
 
 ## Performance Notes
 

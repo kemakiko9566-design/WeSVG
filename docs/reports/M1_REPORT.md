@@ -1,29 +1,32 @@
 # M1 Report — Editor Core Stabilization
 
 ## Goal
+
 Stabilize the editor foundation: auto-save, undo/redo, image persistence, text editing, professional selection UX.
 
 ## Duration
+
 2026-06-18 to 2026-06-18 (first pass)
 
 ## Features Implemented
 
-| Feature | Status | Description |
-|---|---|---|
-| Auto-Save | ✅ | 500ms debounce to IndexedDB via Pinia watch |
-| Undo/Redo | ✅ | 50-step history, Ctrl+Z/Shift+Z/Y |
-| History Store | ✅ | Full JSON snapshot approach |
-| Asset Manager | ✅ | IndexedDB blob storage for images |
-| Text Editor Overlay | ✅ | Double-click text editing via HTML textarea |
-| Workspace Background | ✅ | Color/image background for editor environment |
-| RMBG-2.0 Backend | ✅ | Fastify server accepting multipart upload |
-| Canvas ↔ Code Sync | ✅ | Bidirectional with node mapper |
-| Multi-Mode Editor | ✅ | Design/Split/Code/AI modes |
-| Remove-BG Pipeline | ✅ | Frontend upload → backend processing → layer replace |
+| Feature              | Status | Description                                          |
+| -------------------- | ------ | ---------------------------------------------------- |
+| Auto-Save            | ✅     | 500ms debounce to IndexedDB via Pinia watch          |
+| Undo/Redo            | ✅     | 50-step history, Ctrl+Z/Shift+Z/Y                    |
+| History Store        | ✅     | Full JSON snapshot approach                          |
+| Asset Manager        | ✅     | IndexedDB blob storage for images                    |
+| Text Editor Overlay  | ✅     | Double-click text editing via HTML textarea          |
+| Workspace Background | ✅     | Color/image background for editor environment        |
+| RMBG-2.0 Backend     | ✅     | Fastify server accepting multipart upload            |
+| Canvas ↔ Code Sync   | ✅     | Bidirectional with node mapper                       |
+| Multi-Mode Editor    | ✅     | Design/Split/Code/AI modes                           |
+| Remove-BG Pipeline   | ✅     | Frontend upload → backend processing → layer replace |
 
 ## Files Modified/Created
 
 ### New Files
+
 - `src/stores/historyStore.ts` — Undo/redo state management
 - `src/utils/assetManager.ts` — IndexedDB blob asset management
 - `src/utils/removeBg.ts` — Remove background API client
@@ -36,6 +39,7 @@ Stabilize the editor foundation: auto-save, undo/redo, image persistence, text e
 - `server/` — Fastify backend (entire directory)
 
 ### Modified Files
+
 - `src/stores/projectStore.ts` — Auto-save, undo/redo, IndexedDB integration
 - `src/stores/canvasStore.ts` — Cleanup
 - `src/types/index.ts` — Added M1 types (AssetRecord, CanvasProject, ProjectMeta)
@@ -47,13 +51,13 @@ Stabilize the editor foundation: auto-save, undo/redo, image persistence, text e
 
 ## Known Issues
 
-| ID | Title | Status |
-|---|---|---|
-| BUG-001 | Image lost after restart | Fixed |
-| BUG-002 | Color change resets position | Fixed |
-| BUG-003 | Blank page on navigation | Fixed |
-| BUG-004 | Text/Shape click not working | Fixed |
-| BUG-005 | Image not displaying on canvas | Fixed |
+| ID      | Title                          | Status |
+| ------- | ------------------------------ | ------ |
+| BUG-001 | Image lost after restart       | Fixed  |
+| BUG-002 | Color change resets position   | Fixed  |
+| BUG-003 | Blank page on navigation       | Fixed  |
+| BUG-004 | Text/Shape click not working   | Fixed  |
+| BUG-005 | Image not displaying on canvas | Fixed  |
 
 ## Performance Notes
 

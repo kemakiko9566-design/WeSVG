@@ -39,7 +39,7 @@ ${layerHtml}
       case 'shape':
         return this.renderShapeLayer(layer as ShapeLayer, baseAttrs)
       case 'group':
-        return this.renderGroupLayer(layer, layer.children)
+        return this.renderGroupLayer(layer, (layer as { children: string[] }).children)
       default:
         return ''
     }
@@ -60,11 +60,7 @@ ${layerHtml}
       .join('\n')
   }
 
-  private resolveAnimation(
-    type: string,
-    trigger: string,
-    config: Record<string, unknown>,
-  ): string {
+  private resolveAnimation(type: string, trigger: string, config: Record<string, unknown>): string {
     const duration = (config.duration as number) ?? 500
     const begin = trigger === 'click' ? 'click' : `${(config.delay as number) ?? 0}ms`
 
@@ -73,21 +69,18 @@ ${layerHtml}
       'slide-down': `<animateTransform attributeName="transform" type="translate" from="0 0" to="0 ${config.distance ?? 300}" dur="${duration}ms" begin="${begin}" fill="freeze" />`,
       'fade-in': `<animate attributeName="opacity" from="0" to="1" dur="${duration}ms" begin="${begin}" fill="freeze" />`,
       'fade-out': `<animate attributeName="opacity" from="1" to="0" dur="${duration}ms" begin="${begin}" fill="freeze" />`,
-      'rotate': `<animateTransform attributeName="transform" type="rotate" from="0" to="${config.angle ?? 360}" dur="${duration}ms" begin="${begin}" fill="freeze" />`,
+      rotate: `<animateTransform attributeName="transform" type="rotate" from="0" to="${config.angle ?? 360}" dur="${duration}ms" begin="${begin}" fill="freeze" />`,
       'zoom-in': `<animateTransform attributeName="transform" type="scale" from="0" to="${config.scale ?? 1.5}" dur="${duration}ms" begin="${begin}" fill="freeze" />`,
       'zoom-out': `<animateTransform attributeName="transform" type="scale" from="1" to="${config.scale ?? 0.5}" dur="${duration}ms" begin="${begin}" fill="freeze" />`,
-      'pulse': `<animateTransform attributeName="transform" type="scale" values="1; ${config.scale ?? 1.1}; 1" dur="${duration}ms" begin="${begin}ms" repeatCount="2" />`,
-      'float': `<animateTransform attributeName="transform" type="translate" values="0 0; 0 ${-(config.distance ?? 20)}; 0 0" dur="${duration}ms" begin="${begin}ms" repeatCount="indefinite" />`,
+      pulse: `<animateTransform attributeName="transform" type="scale" values="1; ${config.scale ?? 1.1}; 1" dur="${duration}ms" begin="${begin}ms" repeatCount="2" />`,
+      float: `<animateTransform attributeName="transform" type="translate" values="0 0; 0 ${-(config.distance ?? 20)}; 0 0" dur="${duration}ms" begin="${begin}ms" repeatCount="indefinite" />`,
       'click-expand': `<animate attributeName="height" from="0" to="${config.expandHeight ?? 500}" dur="${duration}ms" begin="click" fill="freeze" />`,
     }
 
     return animationMap[type] ?? ''
   }
 
-  private renderAssetLayer(
-    layer: AssetLayer,
-    baseAttrs: string,
-  ): string {
+  private renderAssetLayer(layer: AssetLayer, baseAttrs: string): string {
     if (!layer.asset?.url) return ''
     const animSvg = this.getAnimationSvg(layer)
     const extraAttrs = layer.style.borderRadius
@@ -135,10 +128,7 @@ ${animSvg ? `      ${animSvg}` : ''}
 ${animSvg ? `      ${animSvg}` : ''}`
   }
 
-  private renderGroupLayer(
-    layer: AnyLayer,
-    children: string[],
-  ): string {
+  private renderGroupLayer(layer: AnyLayer, children: string[]): string {
     return `    <g id="${layer.id}" opacity="${layer.transform.opacity}">
       <!-- Group: ${layer.name} -->
     </g>`

@@ -32,9 +32,10 @@ Animation mapping:
   build(canvas: Canvas, extraRules: string[] = []): { system: string; user: string } {
     const cleanedCanvas = this.cleanCanvasForPrompt(canvas)
 
-    const rulesText = extraRules.length > 0
-      ? `\n\nAdditional rules:\n${extraRules.map((r) => `- ${r}`).join('\n')}`
-      : ''
+    const rulesText =
+      extraRules.length > 0
+        ? `\n\nAdditional rules:\n${extraRules.map((r) => `- ${r}`).join('\n')}`
+        : ''
 
     return {
       system: this.systemPrompt + rulesText,
@@ -48,7 +49,7 @@ Animation mapping:
       width: canvas.width,
       height: canvas.height,
       background: canvas.background,
-      layers: canvas.layers.map((layer) => this.cleanLayer(layer)),
+      layers: canvas.layers.map((layer) => this.cleanLayer(layer)) as AnyLayer[],
     }
   }
 
@@ -62,7 +63,11 @@ Animation mapping:
 
     if (layer.style?.fill) cleaned.style = { fill: layer.style.fill }
     if (layer.asset?.url) {
-      cleaned.asset = { url: layer.asset.url, width: layer.asset.width, height: layer.asset.height } as AnyLayer['asset']
+      cleaned.asset = {
+        url: layer.asset.url,
+        width: layer.asset.width,
+        height: layer.asset.height,
+      } as AnyLayer['asset']
     }
     if (layer.animation && layer.animation.length > 0) {
       cleaned.animation = layer.animation.map((a) => ({

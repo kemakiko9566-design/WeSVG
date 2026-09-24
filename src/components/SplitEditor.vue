@@ -19,9 +19,13 @@ function syncCanvasToCode() {
 }
 
 // When layers change, regenerate HTML
-watch(() => canvasStore.canvas?.layers, () => {
-  syncCanvasToCode()
-}, { deep: true, immediate: true })
+watch(
+  () => canvasStore.canvas?.layers,
+  () => {
+    syncCanvasToCode()
+  },
+  { deep: true, immediate: true },
+)
 
 // When user clicks on canvas, highlight the corresponding line
 function onCanvasLayerSelect(layerId: string) {
@@ -74,7 +78,10 @@ watch(htmlCode, (val) => {
 <template>
   <div class="split-editor" :class="uiStore.editorMode">
     <!-- Canvas side -->
-    <div v-if="uiStore.editorMode === 'design' || uiStore.editorMode === 'split'" class="split-canvas">
+    <div
+      v-if="uiStore.editorMode === 'design' || uiStore.editorMode === 'split'"
+      class="split-canvas"
+    >
       <CanvasViewport @layer-select="onCanvasLayerSelect" />
     </div>
 

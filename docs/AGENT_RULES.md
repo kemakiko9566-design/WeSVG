@@ -5,7 +5,7 @@
 ```
 STEP 0: Read CONTEXT_COMPRESSION_RULE.md
   → Understand context compression protocol
-  
+
 STEP 1: Read PROJECT_CONTEXT.json
   → Understand project status, version, current milestone
 
@@ -73,18 +73,23 @@ Create an Architecture Decision Record when:
 # YYYY-MM-DD — Task Name
 
 ## Task
+
 [Description of what was done]
 
 ## Files Changed
+
 - path/to/file.ts — what changed
 - path/to/file.vue — what changed
 
 ## Implementation Details
+
 [Key decisions, trade-offs, approach]
 
 ## Potential Risks
+
 [Any risks or edge cases to watch for]
 
 ## Next Recommended Step
+
 [What to do next]
 ```
